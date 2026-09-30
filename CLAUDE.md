@@ -14,7 +14,15 @@ Commands (`python3 tools/smartlead.py <command> --help` for all options):
 - `create-tag NAME`: create an email-account tag.
 - `assign-tag NAME --emails-file FILE`: add an existing tag to accounts (25 per API call).
 
+`tools/campaign_leads.py` finds and removes leads from Smartlead campaigns (same key and network needs):
+
+- `scan --emails-file FILE`: read-only; which campaigns hold these leads. FILE is one address per line or a CSV.
+- `remove --emails-file FILE`: remove matched leads from campaigns. Dry run unless `--apply`; `--skip-campaign ID_OR_NAME` protects a campaign.
+- `data/SEP30_flyscale_upload_emails.txt` holds the SEP30 upload's addresses, pending removal from prior campaigns (asked 30 Sep; blocked then on the missing API key).
+
 Rules:
+
+- `remove` is a dry run unless `--apply`. Show the user the dry-run output (which campaigns, how many leads each) and get a yes before applying.
 
 - `create-tag` and `assign-tag` are dry runs unless `--apply`. Show the user the dry-run output and get a yes before applying.
 - Don't remove, rename, or re-tag accounts on existing tags unless the user names that tag.
